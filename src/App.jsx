@@ -1,19 +1,18 @@
-import React from "react"
 import { useState, useEffect } from 'react'
 import './App.css'
 
 function Jokes() {
-  const [jokes, setJokes] = useState([]);
+  const [jokes, setJokes] = useState([]); // set updates state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showDelivery, setShowDelivery] = useState([]); //to show array onClick
   const [text, setText] = useState([]); // to change text after click
 
-  //call back function
+  //call back function runs on a condition
   useEffect(() => {
       setLoading(true)
       fetch(`https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&amount=10`)
-        .then((response) => response.json())
+        .then((response) => response.json()) //promise resolved  & json parses also a promise
         .then(data => {
           console.log(data);
           // if(data.type === "single") {
@@ -31,7 +30,7 @@ function Jokes() {
         setError("Dad must be sleeping, no jokes here");
         setLoading(false)
     });
-  }, [])
+  }, []) // when component mounts
 
   // define "handleButtonClick" to change state of delivery
   // we pass index so we know which joke is being clicked 
@@ -53,6 +52,7 @@ function Jokes() {
     <>
       <h1>Jokes</h1>
 
+      {/* short ciruit = when loading is true go to other side */}
       {loading && <p>(B)Dad Jokes Incoming...</p>} 
 
       {error && <p>{error}</p>}
